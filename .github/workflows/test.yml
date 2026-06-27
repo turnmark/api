@@ -1,0 +1,40 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: PHPUnit ${{ matrix.phpunit-version }} on PHP ${{ matrix.php-version }} (${{ matrix.dependency-version }}, Ubuntu 24.04)
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        php-version:
+          - '8.5'
+        phpunit-version:
+          - '13.0'
+        dependency-version:
+          - prefer-lowest
+          - prefer-stable
+    steps:
+      - name: Setup PHP ${{ matrix.php-version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Install Dependencies
+        run: composer update --${{ matrix.dependency-version }} --no-interaction --prefer-dist --no-progress --with="phpunit/phpunit:${{ matrix.phpunit-version }}"
+
+      - name: Run PHPUnit ${{ matrix.phpunit-version }}
+        run: vendor/bin/phpunit --configuration=phpunit.xml.dist --no-progress
