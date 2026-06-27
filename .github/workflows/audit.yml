@@ -3,7 +3,7 @@ name: Audit
 on:
   push:
     branches:
-      - main
+      - gh-pages
   pull_request:
   schedule:
     - cron: '0 0 * * *'
