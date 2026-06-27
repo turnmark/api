@@ -10,7 +10,7 @@ use Turnmark\Scraper\Scraper;
 
 $version = $argv[1] ?? 'v1';
 
-$payload = [];
+$payload = ['programs' => []];
 
 $yesterday = Carbon::yesterday('Asia/Tokyo');
 
@@ -26,7 +26,7 @@ if ($version === 'v1') {
             $program['odds'] = $oddsBulk[$stadiumNumber][$raceNumber] ?? [];
             $program['result'] = $resultBulk[$stadiumNumber][$raceNumber] ?? [];
 
-            $payload[$stadiumNumber][$raceNumber] = $program;
+            $payload['programs']['stadiums'][$stadiumNumber]['races'][$raceNumber] = $program;
         }
     }
 }
