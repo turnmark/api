@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "80388619f9f830e36fb82d88989860c5",
+    "content-hash": "164d5cf9c1651f71cf7b4091faa2e35a",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -1738,16 +1738,16 @@
         },
         {
             "name": "turnmark/scraper",
-            "version": "0.2.8",
+            "version": "0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/turnmark/scraper.git",
-                "reference": "e01ac827c55cd55c4eb2938d42a9fe276421976e"
+                "reference": "679c0e51faa30720850e0dc6f7ce64a57fca20f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/turnmark/scraper/zipball/e01ac827c55cd55c4eb2938d42a9fe276421976e",
-                "reference": "e01ac827c55cd55c4eb2938d42a9fe276421976e",
+                "url": "https://api.github.com/repos/turnmark/scraper/zipball/679c0e51faa30720850e0dc6f7ce64a57fca20f6",
+                "reference": "679c0e51faa30720850e0dc6f7ce64a57fca20f6",
                 "shasum": ""
             },
             "require": {
@@ -1794,7 +1794,7 @@
                 "issues": "https://github.com/turnmark/turnmark/issues",
                 "source": "https://github.com/turnmark/turnmark"
             },
-            "time": "2026-06-28T05:58:38+00:00"
+            "time": "2026-06-30T11:37:45+00:00"
         }
     ],
     "packages-dev": [
