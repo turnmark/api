@@ -31,7 +31,7 @@
 
 ### [![v1](https://img.shields.io/badge/Turnmark_API-v1-blue)](https://github.com/turnmark/api/tree/gh-pages/docs/v1)
 
-> 📅 対応期間: 2026年06月01日以降
+> 📅 対応期間: 2026年05月01日以降
 
 ```bash
 https://turnmark.github.io/api/v1/YYYY/YYYYMMDD.json
@@ -45,8 +45,8 @@ https://turnmark.github.io/api/v1/YYYY/YYYYMMDD.json
 
 ### [![v1](https://img.shields.io/badge/Turnmark_API-v1-blue)](https://github.com/turnmark/api/tree/gh-pages/docs/v1)
 
-- 2026年06月01日のデータ
-  - [https://turnmark.github.io/api/v1/2026/20260601.json](https://turnmark.github.io/api/v1/2026/20260601.json)
+- 2026年05月01日のデータ
+  - [https://turnmark.github.io/api/v1/2026/20260501.json](https://turnmark.github.io/api/v1/2026/20260501.json)
 
 ## 📄 ライセンス
 
