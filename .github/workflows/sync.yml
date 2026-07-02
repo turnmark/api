@@ -1,4 +1,4 @@
-name: Scrape
+name: Sync
 
 on:
   schedule:
