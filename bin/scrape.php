@@ -22,9 +22,20 @@ if ($version === 'v1') {
 
     foreach ($programBulk as $stadiumNumber => $items) {
         foreach ($items as $raceNumber => $program) {
-            $program['preview'] = $previewBulk[$stadiumNumber][$raceNumber] ?? [];
-            $program['odds'] = $oddsBulk[$stadiumNumber][$raceNumber] ?? [];
-            $program['result'] = $resultBulk[$stadiumNumber][$raceNumber] ?? [];
+            $program['preview'] = normalizeObject(
+                $previewBulk[$stadiumNumber][$raceNumber] ?? [],
+                ['racers']
+            );
+
+            $program['odds'] = normalizeObject(
+                $oddsBulk[$stadiumNumber][$raceNumber] ?? [],
+                ['trifecta', 'trio', 'exacta', 'quinella', 'quinella_place', 'win', 'place']
+            );
+
+            $program['result'] = normalizeObject(
+                $resultBulk[$stadiumNumber][$raceNumber] ?? [],
+                ['racers']
+            );
 
             $payload['programs']['stadiums'][$stadiumNumber]['races'][$raceNumber] = $program;
         }
@@ -36,3 +47,19 @@ if ($payload === []) {
 }
 
 Saver::save($payload, "docs/{$version}/" . $yesterday->format('Y') . '/' . $yesterday->format('Ymd') . '.json');
+
+/**
+ * @param array $payload
+ * @param array $keys
+ * @return array
+ */
+function normalizeObject(array $payload, array $keys): array
+{
+    foreach ($keys as $key) {
+        if (isset($payload[$key]) && $payload[$key] === []) {
+            $payload[$key] = new stdClass();
+        }
+    }
+
+    return $payload;
+}
