@@ -1,7 +1,7 @@
-# Turnmark API
+# 🚤 Turnmark API
 
 [![pages-build-deployment](https://github.com/turnmark/api/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/turnmark/api/actions/workflows/pages/pages-build-deployment)
-[![scrape](https://github.com/turnmark/api/actions/workflows/scrape.yml/badge.svg)](https://github.com/turnmark/api/actions/workflows/scrape.yml)
+[![sync](https://github.com/turnmark/api/actions/workflows/sync.yml/badge.svg)](https://github.com/turnmark/api/actions/workflows/sync.yml)
 [![license](https://img.shields.io/badge/license-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![v1](https://img.shields.io/badge/Turnmark_API-v1-blue)](https://github.com/turnmark/api/tree/gh-pages/docs/v1)
 
@@ -24,7 +24,7 @@
 
 ## 📌 概要
 
-この API では、ボートレース（ 競艇 ）のデータを取得できます。<br>
+この API では、ボートレース（競艇）のデータを取得できます。<br>
 データは GitHub Pages 上で公開されており、JSON 形式で提供されます。
 
 - **対応レース場**: 全国 24 場すべてに対応しています。特定のレース場のみを取り出すエンドポイントはなく、1日分のデータに全場の情報が含まれます。
@@ -54,6 +54,10 @@ https://turnmark.github.io/api/v1/YYYY/YYYYMMDD.json
 
 - 2026年05月01日のデータ
   - [https://turnmark.github.io/api/v1/2026/20260501.json](https://turnmark.github.io/api/v1/2026/20260501.json)
+
+### コードサンプル
+
+各言語でのデータ取得・パース例は [docs/v1/EXAMPLE.md](docs/v1/EXAMPLE.md) を参照してください。
 
 ## 📄 ライセンス
 
