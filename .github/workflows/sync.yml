@@ -42,8 +42,8 @@ jobs:
           composer update turnmark/scraper --with-dependencies
           composer install --prefer-dist --no-interaction --no-progress
 
-      - name: Scrape JSON
-        run: php bin/scrape.php v1
+      - name: Sync JSON
+        run: php bin/sync.php v1
 
       - name: Deploy JSON
         env:
