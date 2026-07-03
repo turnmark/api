@@ -1,9 +1,16 @@
 # 🚤 Turnmark API
 
-[![pages-build-deployment](https://github.com/turnmark/api/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/turnmark/api/actions/workflows/pages/pages-build-deployment)
-[![sync](https://github.com/turnmark/api/actions/workflows/sync.yml/badge.svg)](https://github.com/turnmark/api/actions/workflows/sync.yml)
-[![license](https://img.shields.io/badge/license-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![v1](https://img.shields.io/badge/Turnmark_API-v1-blue)](https://github.com/turnmark/api/tree/gh-pages/docs/v1)
+[![license](https://img.shields.io/badge/license-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+
+[![pages-build-deployment](https://github.com/turnmark/api/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/turnmark/api/actions/workflows/pages/pages-build-deployment)
+[![test](https://github.com/turnmark/api/actions/workflows/test.yml/badge.svg)](https://github.com/turnmark/api/actions/workflows/test.yml)
+[![psalm](https://github.com/turnmark/api/actions/workflows/psalm.yml/badge.svg)](https://github.com/turnmark/api/actions/workflows/psalm.yml)
+[![audit](https://github.com/turnmark/api/actions/workflows/audit.yml/badge.svg)](https://github.com/turnmark/api/actions/workflows/audit.yml)
+[![sync](https://github.com/turnmark/api/actions/workflows/sync.yml/badge.svg)](https://github.com/turnmark/api/actions/workflows/sync.yml)
+[![keepalive](https://github.com/turnmark/api/actions/workflows/keepalive.yml/badge.svg)](https://github.com/turnmark/api/actions/workflows/keepalive.yml)
+[![dependabot-updates](https://github.com/turnmark/api/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/turnmark/api/actions/workflows/dependabot/dependabot-updates)
 
 ## ⚠️ 注意事項
 
@@ -48,7 +55,7 @@ https://turnmark.github.io/api/v1/YYYY/YYYYMMDD.json
 
 レスポンスの JSON 構造・各フィールドの詳細については、スキーマドキュメントを参照してください。
 
-- [docs/v1/SCHEMA.md](docs/v1/SCHEMA.md)
+- [docs/v1/schema.md](docs/v1/schema.md)
 
 ## 🧩 サンプル
 
@@ -57,7 +64,7 @@ https://turnmark.github.io/api/v1/YYYY/YYYYMMDD.json
 
 ### コードサンプル
 
-各言語でのデータ取得・パース例は [docs/v1/EXAMPLE.md](docs/v1/EXAMPLE.md) を参照してください。
+各言語でのデータ取得・パース例は [docs/v1/example.md](docs/v1/example.md) を参照してください。
 
 ## 📄 ライセンス
 
