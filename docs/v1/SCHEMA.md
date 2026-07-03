@@ -16,8 +16,8 @@ https://turnmark.github.io/api/v1/YYYY/YYYYMMDD.json
 例:
 | フィールド | 値 | 説明 |
 |---|---|---|
-| `grade_number_source` | `"SGa"` | スクレイピング元の文字列 |
-| `grade_number` | `100` | 変換後の数値 |
+| `day_number_source` | `"初日"` | スクレイピング元の文字列 |
+| `day_number` | `1` | 変換後の数値 |
 
 ---
 
@@ -132,7 +132,7 @@ https://turnmark.github.io/api/v1/YYYY/YYYYMMDD.json
 | `air_temperature` | `float` | ✅ | 気温（℃） |
 | `water_temperature` | `float` | ✅ | 水温（℃） |
 
-### 選手直前情報 (`racers`)
+### 選手情報 (`racers`)
 
 枠番（`1`〜`6`）をキーとするオブジェクトです。
 
@@ -160,7 +160,7 @@ https://turnmark.github.io/api/v1/YYYY/YYYYMMDD.json
 | `stadium_number` | `integer` | — | レース場番号 |
 | `race_number` | `integer` | — | レース番号 |
 
-### 賭式一覧
+### 賭式情報
 
 | フィールド | 賭式 | 説明 |
 |---|---|---|
@@ -253,7 +253,7 @@ https://turnmark.github.io/api/v1/YYYY/YYYYMMDD.json
 | `water_temperature` | `float` | ✅ | 水温（℃） |
 | `technique_number` | `integer` | ✅ | 決まり手番号 |
 
-### 選手結果 (`racers`)
+### 選手情報 (`racers`)
 
 枠番（`1`〜`6`）をキーとするオブジェクトです。
 
@@ -265,3 +265,41 @@ https://turnmark.github.io/api/v1/YYYY/YYYYMMDD.json
 | `place_number` | `integer` | ✅ | 着順番号 |
 | `number` | `integer` | ✅ | 選手登録番号 |
 | `name` | `string` | — | 選手名 |
+
+### 払戻情報 (`payouts`)
+
+賭式をキーとする配列です。同じ賭式で複数の払戻がある場合（同着など）、配列に複数の要素が含まれます。
+
+| フィールド | 型 | 説明 |
+|---|---|---|
+| `combination` | `string` | 的中組み合わせ（例: `"4-3-1"`、`"1=3=4"`） |
+| `amount` | `integer` | 払戻金額（円） |
+
+```json
+"payouts": {
+  "trifecta": [
+    { "combination": "4-3-1", "amount": 3040 }
+  ],
+  "trio": [
+    { "combination": "1=3=4", "amount": 300 }
+  ],
+  "exacta": [
+    { "combination": "4-3", "amount": 1290 }
+  ],
+  "quinella": [
+    { "combination": "3=4", "amount": 380 }
+  ],
+  "quinella_place": [
+    { "combination": "3=4", "amount": 160 },
+    { "combination": "1=4", "amount": 200 },
+    { "combination": "1=3", "amount": 260 }
+  ],
+  "win": [
+    { "combination": "4", "amount": 330 }
+  ],
+  "place": [
+    { "combination": "4", "amount": 140 },
+    { "combination": "3", "amount": 140 }
+  ]
+}
+```
