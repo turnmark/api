@@ -3,7 +3,6 @@
 [![v1](https://img.shields.io/badge/Turnmark_API-v1-blue)](https://github.com/turnmark/api/tree/gh-pages/docs/v1)
 [![license](https://img.shields.io/badge/license-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-
 [![pages-build-deployment](https://github.com/turnmark/api/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/turnmark/api/actions/workflows/pages/pages-build-deployment)
 [![test](https://github.com/turnmark/api/actions/workflows/test.yml/badge.svg)](https://github.com/turnmark/api/actions/workflows/test.yml)
 [![psalm](https://github.com/turnmark/api/actions/workflows/psalm.yml/badge.svg)](https://github.com/turnmark/api/actions/workflows/psalm.yml)
