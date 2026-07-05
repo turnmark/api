@@ -24,12 +24,12 @@ jobs:
           php-version: ${{ matrix.php-version }}
           extensions: mbstring, xml
 
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: composer update --prefer-dist --no-interaction --no-progress
 
       - name: Run Psalm
