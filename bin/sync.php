@@ -35,4 +35,7 @@ if ($payload['programs'] === []) {
     exit;
 }
 
-Saver::save($payload, "docs/{$version}/" . $yesterday->format('Y') . '/' . $yesterday->format('Ymd') . '.json');
+$yesterdayY = $yesterday->format('Y');
+$yesterdayYmd = $yesterday->format('Ymd');
+
+Saver::save($payload, "docs/{$version}/{$yesterdayY}/{$yesterdayYmd}.json");
