@@ -5,7 +5,7 @@ declare(strict_types=1);
 require __DIR__ . '/../vendor/autoload.php';
 
 use Carbon\CarbonImmutable as Carbon;
-use Turnmark\API\Saver;
+use Turnmark\API\Storage;
 use Turnmark\Scraper\Scraper;
 
 $version = $argv[1] ?? 'v1';
@@ -38,4 +38,4 @@ if ($payload['programs'] === []) {
 $yesterdayY = $yesterday->format('Y');
 $yesterdayYmd = $yesterday->format('Ymd');
 
-Saver::save($payload, "docs/{$version}/{$yesterdayY}/{$yesterdayYmd}.json");
+Storage::save("docs/{$version}/{$yesterdayY}/{$yesterdayYmd}.json", $payload);
