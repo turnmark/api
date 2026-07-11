@@ -9,15 +9,15 @@ use RuntimeException;
 /**
  * @author shimomo
  */
-final class Saver
+final class Storage
 {
     /**
-     * @param array $payload
      * @param non-empty-string $path
+     * @param array $payload
      * @return void
      * @throws \RuntimeException
      */
-    public static function save(array $payload, string $path): void
+    public static function save(string $path, array $payload): void
     {
         $json = json_encode($payload);
         if ($json === false) {

@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Turnmark\API\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Turnmark\API\Saver;
+use Turnmark\API\Storage;
 
 /**
  * @author shimomo
  */
-final class SaverTest extends TestCase
+final class StorageTest extends TestCase
 {
     /**
      * @var string
@@ -65,7 +65,7 @@ final class SaverTest extends TestCase
 
         $path = $this->tempDir . '/payload.json';
 
-        Saver::save($payload, $path);
+        Storage::save($path, $payload);
 
         $this->assertFileExists($path);
 
