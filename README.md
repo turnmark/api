@@ -25,7 +25,7 @@
 
 ---
 
-## 概要
+## 📝 概要
 
 この API では、ボートレース（競艇）のデータを取得できます。データは GitHub Pages 上で公開されており、JSON 形式で提供されます。
 
@@ -52,7 +52,7 @@ https://turnmark.github.io/api/v1/YYYY/YYYYMMDD.json
 
 ---
 
-## レスポンス仕様
+## 📦 レスポンス仕様
 
 レスポンスの JSON 構造・各フィールドの詳細については、スキーマドキュメントを参照してください。
 
@@ -60,7 +60,7 @@ https://turnmark.github.io/api/v1/YYYY/YYYYMMDD.json
 
 ---
 
-## サンプル
+## 💡 サンプル
 
 - 2026年05月01日のデータ: [https://turnmark.github.io/api/v1/2026/20260501.json](https://turnmark.github.io/api/v1/2026/20260501.json)
 
@@ -68,7 +68,7 @@ https://turnmark.github.io/api/v1/YYYY/YYYYMMDD.json
 
 ---
 
-## boatraceopenapi/api との違い
+## 🔍 boatraceopenapi/api との違い
 
 同じくボートレース（競艇）のデータを提供する [boatraceopenapi/api](https://github.com/boatraceopenapi/api) とは、データの範囲や更新タイミングが異なります。用途に応じて使い分けてください。
 
@@ -83,7 +83,7 @@ https://turnmark.github.io/api/v1/YYYY/YYYYMMDD.json
 
 ---
 
-## コントリビューション
+## 🤝 コントリビューション
 
 **Pull Request は受け付けておりません。**
 
