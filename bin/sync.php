@@ -15,18 +15,18 @@ $payload = ['programs' => []];
 $yesterday = Carbon::yesterday('Asia/Tokyo');
 
 if ($version === 'v1') {
-    $programBulk = BatchScraper::scrapeProgram($yesterday);
-    $previewBulk = BatchScraper::scrapePreview($yesterday);
-    $oddsBulk = BatchScraper::scrapeOdds($yesterday);
-    $resultBulk = BatchScraper::scrapeResult($yesterday);
+    $program = BatchScraper::scrapeProgram($yesterday);
+    $preview = BatchScraper::scrapePreview($yesterday);
+    $odds = BatchScraper::scrapeOdds($yesterday);
+    $result = BatchScraper::scrapeResult($yesterday);
 
-    foreach ($programBulk as $stadiumNumber => $items) {
-        foreach ($items as $raceNumber => $program) {
-            $program['preview'] = $previewBulk[$stadiumNumber][$raceNumber] ?? new stdClass();
-            $program['odds'] = $oddsBulk[$stadiumNumber][$raceNumber] ?? new stdClass();
-            $program['result'] = $resultBulk[$stadiumNumber][$raceNumber] ?? new stdClass();
+    foreach ($program as $stadiumNumber => $races) {
+        foreach ($races as $raceNumber => $race) {
+            $race['preview'] = $preview[$stadiumNumber][$raceNumber] ?? new stdClass();
+            $race['odds'] = $odds[$stadiumNumber][$raceNumber] ?? new stdClass();
+            $race['result'] = $result[$stadiumNumber][$raceNumber] ?? new stdClass();
 
-            $payload['programs']['stadiums'][$stadiumNumber]['races'][$raceNumber] = $program;
+            $payload['programs']['stadiums'][$stadiumNumber]['races'][$raceNumber] = $race;
         }
     }
 }
