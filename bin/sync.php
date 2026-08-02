@@ -6,7 +6,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use Carbon\CarbonImmutable as Carbon;
 use Turnmark\API\Storage;
-use Turnmark\Scraper\Scraper;
+use Turnmark\Scraper\BatchScraper;
 
 $version = $argv[1] ?? 'v1';
 
@@ -15,10 +15,10 @@ $payload = ['programs' => []];
 $yesterday = Carbon::yesterday('Asia/Tokyo');
 
 if ($version === 'v1') {
-    $programBulk = Scraper::scrapeProgramBulk($yesterday);
-    $previewBulk = Scraper::scrapePreviewBulk($yesterday);
-    $oddsBulk = Scraper::scrapeOddsBulk($yesterday);
-    $resultBulk = Scraper::scrapeResultBulk($yesterday);
+    $programBulk = BatchScraper::scrapeProgram($yesterday);
+    $previewBulk = BatchScraper::scrapePreview($yesterday);
+    $oddsBulk = BatchScraper::scrapeOdds($yesterday);
+    $resultBulk = BatchScraper::scrapeResult($yesterday);
 
     foreach ($programBulk as $stadiumNumber => $items) {
         foreach ($items as $raceNumber => $program) {
