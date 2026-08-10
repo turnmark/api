@@ -1,6 +1,6 @@
 # レスポンススキーマ (v1)
 
-> 📅 対応期間: 2026年05月01日以降
+> 📅 対応期間: 2026年01月01日以降
 
 ## エンドポイント
 
@@ -18,6 +18,20 @@ https://turnmark.github.io/api/v1/YYYY/YYYYMMDD.json
 |---|---|---|
 | `day_number_source` | `"初日"` | スクレイピング元の文字列 |
 | `day_number` | `1` | 変換後の数値 |
+
+## `null` について
+
+**すべてのフィールドは `null` になり得ます。** 公式サイト上で該当欄が空欄の場合、`_source` と変換後の値がいずれも `null` になります。
+
+主な例は以下のとおりです。
+
+| ケース | 該当フィールド |
+|---|---|
+| 欠場艇 | `course_number` / `start_timing` / オッズ |
+| プロペラを交換していない | `propeller` |
+| 部品交換の個数が非公表 | `parts[].quantity` |
+| 直前情報が未公開のレース | `preview` 配下すべて（`parts` は空配列ではなく `null`） |
+| 決まり手が付かないレース | `technique_number` |
 
 ---
 
@@ -145,6 +159,33 @@ https://turnmark.github.io/api/v1/YYYY/YYYYMMDD.json
 | `weight_adjustment` | `float` | ✅ | 体重調整量（kg） |
 | `exhibition_time` | `float` | ✅ | 展示タイム（秒） |
 | `tilt_adjustment` | `float` | ✅ | チルト調整 |
+| `propeller` | `string` | — | プロペラ交換の有無（交換時は `"新"`、それ以外は `null`） |
+| `parts` | `array` | — | 部品交換情報（交換がなければ空配列、直前情報が未公開のレースは `null`） |
+
+#### 部品交換情報 (`parts`)
+
+交換した部品ごとの要素を持つ配列です。
+
+| フィールド | 型 | `_source` | 説明 |
+|---|---|---|---|
+| `number` | `integer` | ✅ | 部品番号 |
+| `quantity` | `integer` | — | 交換個数（非公表の場合は `null`） |
+
+```json
+"parts": [
+  { "number_source": "リング", "number": 2, "quantity": 4 },
+  { "number_source": "キャブ", "number": 4, "quantity": null }
+]
+```
+
+部品番号の対応は以下のとおりです。
+
+| 番号 | 部品 | 番号 | 部品 |
+|---|---|---|---|
+| `1` | ピストン | `5` | シリンダ |
+| `2` | ピストンリング | `6` | クランクシャフト |
+| `3` | 電気一式 | `7` | ギヤケース |
+| `4` | キャブレター | `8` | キャリアボデー |
 
 ---
 
@@ -232,6 +273,17 @@ https://turnmark.github.io/api/v1/YYYY/YYYYMMDD.json
 }
 ```
 
+### 欠場艇のオッズ
+
+欠場艇を含む組み合わせは公式サイト上でオッズ欄が空欄になるため、`null` になります。下限・上限で表現する賭式（拡連複・複勝）では、`lower_limit` と `upper_limit` の両方が `null` です。
+
+```json
+"win": { "1": null, "2": 2.0 },
+"place": { "1": { "lower_limit": null, "upper_limit": null } }
+```
+
+該当する枠番は、結果 (`result`) の `refunds` で確認できます。
+
 ---
 
 ## 結果 (`result`)
@@ -252,6 +304,17 @@ https://turnmark.github.io/api/v1/YYYY/YYYYMMDD.json
 | `air_temperature` | `float` | ✅ | 気温（℃） |
 | `water_temperature` | `float` | ✅ | 水温（℃） |
 | `technique_number` | `integer` | ✅ | 決まり手番号 |
+| `remarks` | `string` | — | 備考（返還艇がある場合は `"【返還艇あり】"`、それ以外は `null`） |
+| `refunds` | `array` | — | 返還艇の枠番リスト（返還がなければ空配列） |
+
+### 返還艇 (`refunds`)
+
+フライング・出遅れ・欠場により舟券が返還された艇の枠番です。
+
+```json
+"remarks": "【返還艇あり】",
+"refunds": [2, 3, 5, 6]
+```
 
 ### 選手情報 (`racers`)
 
@@ -266,6 +329,19 @@ https://turnmark.github.io/api/v1/YYYY/YYYYMMDD.json
 | `number` | `integer` | ✅ | 選手登録番号 |
 | `name` | `string` | — | 選手名 |
 
+着順番号は、通常の着順のほか失格・欠場も表します。
+
+| 番号 | 意味 | 番号 | 意味 |
+|---|---|---|---|
+| `1`〜`6` | 1着〜6着 | `12` | 不完走失格 |
+| `7` | 妨害失格 | `13` | 失格 |
+| `8` | エンスト失格 | `14` | フライング欠場 |
+| `9` | 転覆失格 | `15` | 出遅れ欠場 |
+| `10` | 落水失格 | `16` | 欠場 |
+| `11` | 沈没失格 | `99` | その他 |
+
+レースに出走しなかった艇（`14`〜`16`）は、`course_number` と `start_timing` が `null` になります。
+
 ### 払戻情報 (`payouts`)
 
 賭式をキーとする配列です。同じ賭式で複数の払戻がある場合（同着など）、配列に複数の要素が含まれます。
@@ -274,32 +350,61 @@ https://turnmark.github.io/api/v1/YYYY/YYYYMMDD.json
 |---|---|---|
 | `combination` | `string` | 的中組み合わせ（例: `"4-3-1"`、`"1=3=4"`） |
 | `amount` | `integer` | 払戻金額（円） |
+| `label` | `string` | 組み合わせが確定しなかった場合のラベル（例: `"特払"`、`"不成立"`） |
 
 ```json
 "payouts": {
   "trifecta": [
-    { "combination": "4-3-1", "amount": 3040 }
+    { "combination": "4-3-1", "amount": 3040, "label": null }
   ],
   "trio": [
-    { "combination": "1=3=4", "amount": 300 }
+    { "combination": "1=3=4", "amount": 300, "label": null }
   ],
   "exacta": [
-    { "combination": "4-3", "amount": 1290 }
+    { "combination": "4-3", "amount": 1290, "label": null }
   ],
   "quinella": [
-    { "combination": "3=4", "amount": 380 }
+    { "combination": "3=4", "amount": 380, "label": null }
   ],
   "quinella_place": [
-    { "combination": "3=4", "amount": 160 },
-    { "combination": "1=4", "amount": 200 },
-    { "combination": "1=3", "amount": 260 }
+    { "combination": "3=4", "amount": 160, "label": null },
+    { "combination": "1=4", "amount": 200, "label": null },
+    { "combination": "1=3", "amount": 260, "label": null }
   ],
   "win": [
-    { "combination": "4", "amount": 330 }
+    { "combination": "4", "amount": 330, "label": null }
   ],
   "place": [
-    { "combination": "4", "amount": 140 },
-    { "combination": "3", "amount": 140 }
+    { "combination": "4", "amount": 140, "label": null },
+    { "combination": "3", "amount": 140, "label": null }
   ]
 }
 ```
+
+### 払戻が発生しないケース
+
+通常の払戻以外に3つのケースがあります。`combination` と `amount` のどちらが `null` かで判別できます。
+
+| ケース | `combination` | `amount` | `label` | 意味 |
+|---|---|---|---|---|
+| 通常 | 組番 | 金額 | `null` | 的中・払戻あり |
+| 票なし | 組番 | `null` | `null` | 的中したが該当票がなく、同じ賭式の他の的中目が総取り |
+| 特払 | `null` | 返還額 | `"特払"` | その賭式のどの目にも票がなく、全票が返還 |
+| 不成立 | `null` | 返還額 | `"不成立"` | 返還艇により賭式自体が不成立 |
+
+```json
+"win": [
+  { "combination": null, "amount": 70, "label": "特払" }
+],
+"trifecta": [
+  { "combination": null, "amount": 100, "label": "不成立" }
+],
+"place": [
+  { "combination": "3", "amount": 140, "label": null },
+  { "combination": "4", "amount": null, "label": null }
+]
+```
+
+`label` は公式サイトの表記をそのまま格納します。上記2種類以外の文字列が入る可能性もあるため、値を固定で判定せず、`null` かどうかで分岐することを推奨します。
+
+レースが中止・不開催の場合は、すべての賭式が空配列になります。
